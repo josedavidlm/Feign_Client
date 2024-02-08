@@ -1,37 +1,43 @@
 package com.codigo.feign.service.impl;
 
+
 import com.codigo.feign.aggregates.constants.Constants;
-import com.codigo.feign.aggregates.request.PersonaRequest;
+import com.codigo.feign.aggregates.request.EmpresaRequest;
 import com.codigo.feign.aggregates.response.BaseResponse;
 import com.codigo.feign.aggregates.response.ReniecResponse;
+import com.codigo.feign.aggregates.response.SunatResponse;
 import com.codigo.feign.feignclient.ReniecClient;
+import com.codigo.feign.feignclient.SunatClient;
+import com.codigo.feign.repository.EmpresaRepository;
 import com.codigo.feign.repository.PersonaRepository;
-import com.codigo.feign.service.PersonaService;
+import com.codigo.feign.service.EmpresaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-
 import java.util.Optional;
 
 @Service
-public class PersonaServiceImpl implements PersonaService {
+public class EmpresaServiceImpl implements EmpresaService {
   @Autowired
-  PersonaRepository personaRepository;
+  EmpresaRepository empresaRepository;
   @Autowired
-  ReniecClient reniecClient;
+  SunatClient sunatClient;
 
   @Value("${token.api}")
   private String tokenApi;
 
+
+
   @Override
-  public BaseResponse crearPersona(PersonaRequest personaRequest) {
+  public BaseResponse crearEmpresa(EmpresaRequest empresaRequest) {
     return null;
   }
 
   @Override
-  public BaseResponse getInfoReniec(String numero) {
-    ReniecResponse response = getExecution(numero);
+  public BaseResponse getInfoSunat(String numero) {
+
+    SunatResponse response = getExecution(numero);
 
     if (response!=null){
       return  new BaseResponse(Constants.CODE_SUCCESS, Constants.MESS_SUCCESS, Optional.of(response));
@@ -40,9 +46,9 @@ public class PersonaServiceImpl implements PersonaService {
     }
   }
 
-  private ReniecResponse getExecution(String numero){
+  private SunatResponse getExecution(String numero){
     String authorization = "Bearer "+ tokenApi;
-    return  reniecClient.getInfo(numero,authorization);
+    return  sunatClient.getInfo(numero,authorization);
 
   }
 }

@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PersonaRequest {
+public class EmpresaRequest {
 
   private  String tipoDoc;
   private  String numDoc;
