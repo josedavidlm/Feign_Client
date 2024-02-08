@@ -15,6 +15,7 @@ public class EmpresaController {
 
   @Autowired
   EmpresaService empresaService;
+
   @GetMapping("{numero}")
   public BaseResponse getInfoSunat(@PathVariable String numero){
     return empresaService.getInfoSunat(numero);
